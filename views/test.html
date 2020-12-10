@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+
+  <title>index</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../public/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+
+</head>
+
+
+
+<body>
+  <div id='mask' style='width: 100%; height: 100%;background-color:#d3d3d3;opacity: 0.5;position: absolute; display: none;'>
+      <img src='../public/images/Spinner.gif' style="position:absolute; left:50%; top:30%; transform:translateX(-50%);"/>
+  </div>  
+  <div class="container">
+    <div id="mainId"
+      style="width: 800px;position:absolute; left:35%; top:10%; display: none;">
+      <div>
+        <div class="question-div-class">
+          <p id="questionNumId" class="question-p-class"
+            style="font-weight: bold; font-size: 35px; color:#FF026C; font-family: -apple-system, BlinkMacSystemFont, sans-serif;">
+            Q1
+            </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 40px;">
+
+        <p id="questionId" style="font-size: 28px;
+                    font-weight: 800;
+                    line-height: 1.5;
+                    font-family:-apple-system, BlinkMacSystemFont, sans-serif;">
+                    안녕하세요
+        </p>
+
+      </div>
+
+      <div style="margin-top: 40px;height: 150px;">
+        <div id="answerId0" class="answers" style="
+          width: 440px; 
+          height: 75px;  
+          color: #000000;
+          background-color:#f7f7f7;
+          opacity: 1; 
+          display: flex;
+          padding: 0 30px;
+          height: 100px;
+          font-size: 20px;
+          align-items: center;
+          border-radius: 15px;
+          margin-bottom: 12px;
+          font-weight: 500;
+          cursor: pointer;">
+          1
+        </div>
+
+        <div id="answerId1" class="answers" style="
+            margin-top: 10px; 
+            width: 440px; 
+            height: 75px; 
+            color: #000000;
+            background-color:#f7f7f7;
+            opacity: 1; 
+            display: flex;
+            padding: 0 30px;
+            height: 100px;
+            font-size: 20px;
+            align-items: center;
+            border-radius: 15px;
+            margin-bottom: 12px;
+            font-weight: 500;
+            cursor: pointer;">
+          1
+        </div>
+
+        <div id="answerId2" class="answers" style="
+            margin-top: 10px; 
+            width: 440px; 
+            height: 75px; 
+            color: #000000;
+            background-color:#f7f7f7;
+            opacity: 1; 
+            display: flex;
+            padding: 0 30px;
+            height: 100px;
+            font-size: 20px;
+            align-items: center;
+            border-radius: 15px;
+            margin-bottom: 12px;
+            font-weight: 500;
+            cursor: pointer;">
+          1
+        </div>
+
+        <div id="answerId3" class="answers" style="
+            margin-top: 10px; 
+            width: 440px; 
+            height: 75px; 
+            color: #000000;
+            background-color:#f7f7f7;
+            opacity: 1; 
+            display: flex;
+            padding: 0 30px;
+            height: 100px;
+            font-size: 20px;
+            align-items: center;
+            border-radius: 15px;
+            margin-bottom: 12px;
+            font-weight: 500;
+            cursor: pointer;">
+          1
+        </div>
+
+        <div id="answerId4" class="answers" style=" 
+            margin-top: 10px; 
+            width: 440px; 
+            height: 75px; 
+            color: #000000;
+            background-color:#f7f7f7;
+            opacity: 1; 
+            display: flex;
+            padding: 0 30px;
+            height: 100px;
+            font-size: 20px;
+            align-items: center;
+            border-radius: 15px;
+            margin-bottom: 12px;
+            font-weight: 500;
+            cursor: pointer;">
+          1
+        </div>
+
+        <div id="resultId" style="display: none;">
+        </div>
+        <div id="goToStartDivId" style="margin-top: 40px; margin-left: 100px; display: none;">
+          <img id="goToStartId" src="../public/images/return.png" >
+        </div>
+      </div>
+
+    </div>
+  </div> <!-- /container -->
+  <script src="../public/js/mydata.js"></script>
+  <script type="text/javascript">
+    var indexP = 0;
+    var qArr = [
+      "청각장애지원 서비스가 필요하신가요?",
+      //"어디 지역을 원하시나요?",
+      "성적 평균 등급은 어느 구간이신가요?",
+      "한 학기 학비는 어느 수준을 원하시나요?",
+      "역세권 유무를 선택해주세요.",
+      "장애전형 유무를 선택해주세요.",
+    ];
+    var aArr = [
+      ["O", "X"], //장애 지원 서비스
+      //["전국", "서울", "경기", ""]
+      ["1 - 2 등급", "2 - 3 등급", "3 - 4 등급", "4 - 5 등급", "5 등급 이상"], // 성적평균
+      ["100 - 200 만원", "200 - 300 만원", "300 - 400 만원", "400 만원 이상"], // 한학기 등록금
+      ["O", "X"], //역세권 유무
+      ["O", "X"], //장애전형  유무
+    ];
+    var resultArr = [];
+    var clientAnswer = {};
+
+    $(document).ready(function () {
+
+      $(".answers").mouseenter(function () {
+        $(this).css("background-color", "#FF026C")
+        $(this).css("color", "#f7f7f7")
+      });
+
+      $(".answers").mouseleave(function () {
+        $(this).css("background-color", "#f7f7f7")
+        $(this).css("color", "#000000")
+      });
+
+      $("div").mousedown(function (e) {
+        e.preventDefault();
+        $(this).blur();
+        return false;
+      });
+      $("p").mousedown(function (e) {
+        e.preventDefault();
+        $(this).blur();
+        return false;
+      });
+
+      $("#goToStartId").on("click", function(){
+        location.href = "./index.html";
+      });
+
+      $(".answers").on("click", function () {
+        //console.log("click!");
+        //console.log($(this).text());
+        switch(indexP){
+          case 0 : 
+            clientAnswer.chungyn = $(this).text() == "O" ? "Y" : "N";
+            break;
+          case 1 : 
+            clientAnswer.score1 = $(this).text().substring(0,1);
+            break;
+          case 2 : 
+            clientAnswer.money1 = $(this).text().substring(0,1);
+            break;
+          case 3 : 
+            clientAnswer.station = $(this).text() == "O" ? "Y" : "N";
+            break;
+          case 4 : 
+            clientAnswer.dis = $(this).text() == "O" ? "Y" : "N";
+            break;
+        }
+        
+        indexP++;
+
+        if(indexP > 4){
+          resultMethod();
+          return;
+        }
+
+        $("#mainId").fadeOut(1);
+        settingQnA();
+        $("#mainId").fadeIn(500);
+      });
+
+
+      function loadingBar() {
+        $("#mask").show();
+      }
+
+      function closeLoadingBar() {
+        $('#mask, #loadingImg').hide();
+        $('#mask, #loadingImg').empty(); 
+      }
+
+      function clearAndNone(){
+        for(var i=0;i < 5;i++){
+          $("#answerId"+i).text(" ");
+          $("#answerId"+i).css("visibility","hidden");
+        }
+      }
+
+      function deleteAnswers(){
+        for(var i=0;i < 5;i++){
+          $("#answerId"+i).css("display","none");
+        }
+      }
+
+      function bindingData(arrParm){
+        for(var i =0 ; i < arrParm.length; i++){
+          $("#answerId"+i).text(arrParm[i]);
+          $("#answerId"+i).css("visibility","visible");
+        }
+      }
+
+      function settingQnA() {
+        $("#questionNumId").text("Q"+(indexP+1)); // Q num
+        $("#questionId").text(qArr[indexP]); // Question
+        
+        clearAndNone();
+
+        bindingData(aArr[indexP]);
+      }
+
+      function settingTemplate(){
+        console.log('탐')
+        console.log(resultArr)
+        var temp1 = "<div style=\"font-weight: bold; font-size: 20px;\">#";
+        var temp2 = "</div>"; 
+        
+        for(var i =0; i < resultArr.length; i++){
+          var resultTemp = temp1 + resultArr[i].univ + temp2;
+          $("#resultId").append(resultTemp);
+        }
+        $("#resultId").css("display","block");
+      }
+
+      function resultMethod(){
+
+        for(var i=0; i < myData.length; i++){
+            if(clientAnswer.chungyn == myData[i].chungyn){
+              if(clientAnswer.dis == myData[i].dis){
+                if(clientAnswer.money1 == myData[i].money1){
+                  if(clientAnswer.score1 == myData[i].score1){
+                    if(clientAnswer.station == myData[i].station){
+                      resultArr.push(myData[i]);
+                    }
+                  }
+                }
+              }  
+            }
+          }
+
+        deleteAnswers();
+        $("#mask").show();
+        setTimeout(function(){
+          $("#questionNumId").text("결과!"); // Q num
+          $("#goToStartDivId").css("display","block");
+          $("body").css("background-color","#fafafa");
+          
+          if(resultArr.length == 0){
+            $("#questionId").text("아쉽게도 적합한 대학교가 없습니다."); // Question  
+            $("#mask").hide();
+            return;
+          }else{
+            $("#questionId").text("당신에게 적합한 대학교들은 다음과 같습니다."); // Question
+          }
+          settingTemplate();
+          $("#mask").hide();
+        }, 1000);
+        
+      }
+
+      // 시작
+      function init(){
+        settingQnA();
+        $("#mainId").fadeIn(500);
+        console.log(myData);
+      }
+      init();
+    });
+
+  </script>
+
+</body>
+
+</html>
