@@ -157,23 +157,59 @@
   <script type="text/javascript">
     var indexP = 0;
     var qArr = [
+      "어느 학과를 희망하시나요?",
+    ];
+    var questionType1 = [ //국문, 문창, 철학
       "청각장애지원 서비스가 필요하신가요?",
-      //"어디 지역을 원하시나요?",
       "성적 평균 등급은 어느 구간이신가요?",
       "한 학기 학비는 어느 수준을 원하시나요?",
       "역세권 유무를 선택해주세요.",
+      "장애전형 유무를 선택해주세요."
+    ]
+    var questionType2 = [ //유아
+      "한 학기 학비는 어느 수준을 원하시나요?",
       "장애전형 유무를 선택해주세요.",
-    ];
-    var aArr = [
-      ["O", "X"], //장애 지원 서비스
-      //["전국", "서울", "경기", ""]
+      "청각장애지원 서비스가 필요하신가요?",
+      "성적 평균 등급은 어느 구간이신가요?",
+      "역세권 유무를 선택해주세요.",
+    ]
+    var questionType3 = [ // 조리
+      "청각장애지원 서비스가 필요하신가요?",
+      "한 학기 학비는 어느 수준을 원하시나요?",
+      "장애전형 유무를 선택해주세요.",
+      "역세권 유무를 선택해주세요.",
+      "성적 평균 등급은 어느 구간이신가요?",
+    ]
+    var answerType1 = [ //국문, 문창, 철학
+      ["필수", "무관"], //장애 지원 서비스
       ["1 - 2 등급", "2 - 3 등급", "3 - 4 등급", "4 - 5 등급", "5 등급 이상"], // 성적평균
       ["100 - 200 만원", "200 - 300 만원", "300 - 400 만원", "400 만원 이상"], // 한학기 등록금
-      ["O", "X"], //역세권 유무
-      ["O", "X"], //장애전형  유무
+      ["필수", "무관"], //역세권 유무
+      ["필수", "무관"], //장애전형  유무
+    ]
+    var answerType2 = [ //유아
+      ["100 - 200 만원", "200 - 300 만원", "300 - 400 만원", "400 만원 이상"], // 한학기 등록금
+      ["필수", "무관"], //장애전형  유무
+      ["필수", "무관"], //장애 지원 서비스
+      ["1 - 2 등급", "2 - 3 등급", "3 - 4 등급", "4 - 5 등급", "5 등급 이상"], // 성적평균
+      ["필수", "무관"], //역세권 유무
+    ]
+    var answerType3 = [ // 조리
+      ["필수", "무관"], //장애 지원 서비스
+      ["100 - 200 만원", "200 - 300 만원", "300 - 400 만원", "400 만원 이상"], // 한학기 등록금
+      ["필수", "무관"], //장애전형  유무
+      ["필수", "무관"], //역세권 유무
+      ["1 - 2 등급", "2 - 3 등급", "3 - 4 등급", "4 - 5 등급", "5 등급 이상"], // 성적평균
+    ]
+    var aArr = [
+      ["국어국문학과","문예창작학과","철학과","유아 관련 학과", "조리관련학과"], // 원하는 학과
     ];
     var resultArr = [];
     var clientAnswer = {};
+    var dataType = "";
+    var compareArr = [];
+    var chooseMajor = "";
+    var majorExplanation;
 
     $(document).ready(function () {
 
@@ -203,36 +239,81 @@
       });
 
       $(".answers").on("click", function () {
-        //console.log("click!");
-        //console.log($(this).text());
-        switch(indexP){
-          case 0 : 
-            clientAnswer.chungyn = $(this).text() == "O" ? "Y" : "N";
-            break;
-          case 1 : 
-            clientAnswer.score1 = $(this).text().substring(0,1);
-            break;
-          case 2 : 
-            clientAnswer.money1 = $(this).text().substring(0,1);
-            break;
-          case 3 : 
-            clientAnswer.station = $(this).text() == "O" ? "Y" : "N";
-            break;
-          case 4 : 
-            clientAnswer.dis = $(this).text() == "O" ? "Y" : "N";
-            break;
-        }
-        
-        indexP++;
+        //처음 클릭시 
+        if($(this).text().substring($(this).text().length-1) == "과"){
+          dataType = $(this).text().substring(0,1);
+          switch(dataType){
+            case "국" : 
+              qArr =  questionType1;
+              aArr = answerType1;
+              compareArr = myData1;
+              chooseMajor = $(this).text();
+              majorExplanation = majorExplanation1;
+              break;
+            case "문" : 
+              qArr =  questionType1;
+              aArr = answerType1;
+              compareArr = myData2;
+              chooseMajor = $(this).text();
+              majorExplanation = majorExplanation2;
+              break;
+            case "철" : 
+              qArr =  questionType1;
+              aArr = answerType1;
+              compareArr = myData3;
+              chooseMajor = $(this).text();
+              majorExplanation = majorExplanation3;
+              break;
+            case "유" : 
+              qArr =  questionType2;
+              aArr = answerType2;
+              compareArr = myData4;
+              chooseMajor = $(this).text();
+              majorExplanation = majorExplanation4;
+              break;
+            case "조" : 
+              qArr =  questionType3;
+              aArr = answerType3;
+              compareArr = myData5;
+              chooseMajor = $(this).text();
+              majorExplanation = majorExplanation5;
+              break;
+          }
 
-        if(indexP > 4){
-          resultMethod();
-          return;
+         
+
+          // 그 이후
+        }else{
+          switch(indexP){
+            case 0 : 
+              clientAnswer.chungyn = $(this).text() == "필" ? "Y" : "N";
+              break;
+            case 1 : 
+              clientAnswer.score1 = $(this).text().substring(0,1);
+              break;
+            case 2 : 
+              clientAnswer.money1 = $(this).text().substring(0,1);
+              break;
+            case 3 : 
+              clientAnswer.station = $(this).text() == "필" ? "Y" : "N";
+              break;
+            case 4 : 
+              clientAnswer.dis = $(this).text() == "필" ? "Y" : "N";
+              break;
+          }
+          
+          indexP++;
+
+          if(indexP > 4){
+            resultMethod();
+            return;
+          }
         }
 
         $("#mainId").fadeOut(1);
         settingQnA();
         $("#mainId").fadeIn(500);
+        
       });
 
 
@@ -275,27 +356,48 @@
       }
 
       function settingTemplate(){
-        console.log('탐')
-        console.log(resultArr)
         var temp1 = "<div style=\"font-weight: bold; font-size: 20px;\">#";
         var temp2 = "</div>"; 
+        var temp3 = "<a style=\"text-decoration:none; font-size:15;\" href=\"";
+        var temp4 = "\">학교 바로가기</a>";
+        
+        var temp10 = "<div style=\"margin-top:40px; font-weight: bold; font-size: 20px;\">#"+majorExplanation[0];  //학과명
+        var temp11 = "<div style=\"font-weight: bold;margin-top:15px; font-size: 17px;\">- 학과 개요</div>";  // 학과 개요
+        var temp12 = "<div style=\"font-size: 15px;\">" + majorExplanation[1] + "</div>";  // 학과 개요 내용
+        var temp21 = "<div style=\"font-weight: bold;margin-top:15px; font-size: 17px;\">- 학과 특성</div>";  // 학과 특성
+        var temp22 = "<div style=\"font-size: 15px;\">" + majorExplanation[2] + "</div>";  // 학과 특성 내용
+        var temp31 = "<div style=\"font-weight: bold;margin-top:15px; font-size: 17px;\">- 관련 자격증</div>";  // 관련 자격증
+        var temp32 = "<div style=\"font-size: 15px;\">" + majorExplanation[3] + "</div>";  // 관련 자격증 내용
+        var temp41 = "<div style=\"font-weight: bold;margin-top:15px; font-size: 17px;\">- 관련 직업</div>";  // 관련 직업
+        var temp42 = "<div style=\"font-size: 15px;\">" + majorExplanation[4] + "</div>";  // 관련 직업 내용
+        var temp51 = "<div style=\"font-weight: bold;margin-top:15px; font-size: 17px;\">- 졸업 후 진출 분야</div>";  // 졸업 후 진출 분야 
+        var temp52 = "<div style=\"font-size: 15px;\">" + majorExplanation[5] + "</div>";  // 졸업 후 진출 분야 내용
+        var temp61 = "<div style=\"font-weight: bold;margin-top:15px; font-size: 17px;\">- 세부관련 학과</div>";  // 세부관련학과
+        var temp62 = "<div style=\"font-size: 15px;\">" + majorExplanation[6] + "</div>";  // 세부관련학과 내용
+
+        var appendGogo = temp10 + temp11 + temp12 + temp21 + temp22 + temp31 + temp32 + temp41 + temp42 + temp51 + temp52 + temp61 + temp62 + temp2;
+        
         
         for(var i =0; i < resultArr.length; i++){
-          var resultTemp = temp1 + resultArr[i].univ + temp2;
+          var resultTemp = temp1 + resultArr[i].univ + " " + resultArr[i].major + temp3 + resultArr[i].site + temp4 + temp2;
           $("#resultId").append(resultTemp);
         }
+        $("#resultId").append(appendGogo);
+        
+
         $("#resultId").css("display","block");
       }
 
       function resultMethod(){
 
-        for(var i=0; i < myData.length; i++){
-            if(clientAnswer.chungyn == myData[i].chungyn){
-              if(clientAnswer.dis == myData[i].dis){
-                if(clientAnswer.money1 == myData[i].money1){
-                  if(clientAnswer.score1 == myData[i].score1){
-                    if(clientAnswer.station == myData[i].station){
-                      resultArr.push(myData[i]);
+
+        for(var i=0; i < compareArr.length; i++){
+            if(clientAnswer.chungyn == "N" || clientAnswer.chungyn == compareArr[i].chungyn){
+              if(clientAnswer.dis =="N" || clientAnswer.dis == compareArr[i].dis){
+                if(clientAnswer.station == "N" || clientAnswer.station == compareArr[i].station){
+                  if(clientAnswer.score1 == compareArr[i].score1){
+                    if(clientAnswer.money1 == compareArr[i].money1){
+                      resultArr.push(compareArr[i]);
                     }
                   } 
                 }
@@ -306,7 +408,7 @@
         deleteAnswers();
         $("#mask").show();
         setTimeout(function(){
-          $("#questionNumId").text("결과!"); // Q num
+          $("#questionNumId").text("결과! - " + chooseMajor); 
           $("#goToStartDivId").css("display","block");
           $("body").css("background-color","#fafafa");
           
@@ -327,7 +429,6 @@
       function init(){
         settingQnA();
         $("#mainId").fadeIn(500);
-        console.log(myData);
       }
       init();
     });
