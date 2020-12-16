@@ -285,10 +285,11 @@
 
           // 그 이후
         }else{
+          console.log($(this).text());
           if(dataType == "국" || dataType == "문" || dataType == "철"){
             switch(indexP){
               case 0 : 
-                clientAnswer.chungyn = $(this).text() == "필" ? "Y" : "N";
+                clientAnswer.chungyn = $(this).text().substring(0,1) == "필" ? "Y" : "N";
                 break;
               case 1 : 
                 clientAnswer.score1 = $(this).text().substring(0,1);
@@ -297,10 +298,10 @@
                 clientAnswer.money1 = $(this).text().substring(0,1);
                 break;
               case 3 : 
-                clientAnswer.station = $(this).text() == "필" ? "Y" : "N";
+                clientAnswer.station = $(this).text().substring(0,1) == "필" ? "Y" : "N";
                 break;
               case 4 : 
-                clientAnswer.dis = $(this).text() == "필" ? "Y" : "N";
+                clientAnswer.dis = $(this).text().substring(0,1) == "필" ? "Y" : "N";
                 break;
             }
           }else if(dataType == "유"){
@@ -309,38 +310,38 @@
                 clientAnswer.money1 = $(this).text().substring(0,1);
                 break;
               case 1 : 
-                clientAnswer.dis = $(this).text() == "필" ? "Y" : "N";
+                clientAnswer.dis = $(this).text().substring(0,1) == "필" ? "Y" : "N";
                 break;
               case 2 : 
-                clientAnswer.chungyn = $(this).text() == "필" ? "Y" : "N";
+                clientAnswer.chungyn = $(this).text().substring(0,1) == "필" ? "Y" : "N";
                 break;
               case 3 : 
                 clientAnswer.score1 = $(this).text().substring(0,1);
                 break;
               case 4 : 
-                clientAnswer.station = $(this).text() == "필" ? "Y" : "N";
+                clientAnswer.station = $(this).text().substring(0,1) == "필" ? "Y" : "N";
                 break;
             }
           }else if(dataType == "조"){
             switch(indexP){
               case 0 : 
-                clientAnswer.chungyn = $(this).text() == "필" ? "Y" : "N";
+                clientAnswer.chungyn = $(this).text().substring(0,1) == "필" ? "Y" : "N";
                 break;
               case 1 : 
                 clientAnswer.money1 = $(this).text().substring(0,1);
                 break;
               case 2 : 
-                clientAnswer.dis = $(this).text() == "필" ? "Y" : "N";
+                clientAnswer.dis = $(this).text().substring(0,1) == "필" ? "Y" : "N";
                 break;
               case 3 : 
-                clientAnswer.station = $(this).text() == "필" ? "Y" : "N";
+                clientAnswer.station = $(this).text().substring(0,1) == "필" ? "Y" : "N";
                 break;
               case 4 : 
                 clientAnswer.score1 = $(this).text().substring(0,1);
                 break;
             }
           }
-          
+          console.log(clientAnswer);
           indexP++;
 
           if(indexP > 4){
