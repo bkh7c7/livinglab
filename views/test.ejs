@@ -182,24 +182,24 @@
     ]
     var answerType1 = [ //국문, 문창, 철학
       ["필수", "무관"], //장애 지원 서비스
-      ["1 - 2 등급", "2 - 3 등급", "3 - 4 등급", "4 - 5 등급", "5 등급 이상"], // 성적평균
-      ["100 - 200 만원", "200 - 300 만원", "300 - 400 만원", "400 만원 이상"], // 한학기 등록금
+      ["1등급", "2등급", "3등급", "4등급", "5 등급 미만"], // 성적평균
+      ["200 만원 미만", "300 만원 미만", "400 만원 미만", "400 만원 이상"], // 한학기 등록금
       ["필수", "무관"], //역세권 유무
       ["필수", "무관"], //장애전형  유무
     ]
     var answerType2 = [ //유아
-      ["100 - 200 만원", "200 - 300 만원", "300 - 400 만원", "400 만원 이상"], // 한학기 등록금
+      ["200 만원 미만", "300 만원 미만", "400 만원 미만", "400 만원 이상"], // 한학기 등록금
       ["필수", "무관"], //장애전형  유무
       ["필수", "무관"], //장애 지원 서비스
-      ["1 - 2 등급", "2 - 3 등급", "3 - 4 등급", "4 - 5 등급", "5 등급 이상"], // 성적평균
+      ["1등급", "2등급", "3등급", "4등급", "5 등급 미만"], // 성적평균
       ["필수", "무관"], //역세권 유무
     ]
     var answerType3 = [ // 조리
       ["필수", "무관"], //장애 지원 서비스
-      ["100 - 200 만원", "200 - 300 만원", "300 - 400 만원", "400 만원 이상"], // 한학기 등록금
+      ["200 만원 미만", "300 만원 미만", "400 만원 미만", "400 만원 이상"], // 한학기 등록금
       ["필수", "무관"], //장애전형  유무
       ["필수", "무관"], //역세권 유무
-      ["1 - 2 등급", "2 - 3 등급", "3 - 4 등급", "4 - 5 등급", "5 등급 이상"], // 성적평균
+      ["1등급", "2등급", "3등급", "4등급", "5 등급 미만"], // 성적평균
     ]
     var aArr = [
       ["국어국문학과","문예창작학과","철학과","유아 관련 학과", "조리관련학과"], // 원하는 학과
@@ -210,6 +210,7 @@
     var compareArr = [];
     var chooseMajor = "";
     var majorExplanation;
+    
 
     $(document).ready(function () {
 
@@ -284,22 +285,60 @@
 
           // 그 이후
         }else{
-          switch(indexP){
-            case 0 : 
-              clientAnswer.chungyn = $(this).text() == "필" ? "Y" : "N";
-              break;
-            case 1 : 
-              clientAnswer.score1 = $(this).text().substring(0,1);
-              break;
-            case 2 : 
-              clientAnswer.money1 = $(this).text().substring(0,1);
-              break;
-            case 3 : 
-              clientAnswer.station = $(this).text() == "필" ? "Y" : "N";
-              break;
-            case 4 : 
-              clientAnswer.dis = $(this).text() == "필" ? "Y" : "N";
-              break;
+          if(dataType == "국" || dataType == "문" || dataType == "철"){
+            switch(indexP){
+              case 0 : 
+                clientAnswer.chungyn = $(this).text() == "필" ? "Y" : "N";
+                break;
+              case 1 : 
+                clientAnswer.score1 = $(this).text().substring(0,1);
+                break;
+              case 2 : 
+                clientAnswer.money1 = $(this).text().substring(0,1);
+                break;
+              case 3 : 
+                clientAnswer.station = $(this).text() == "필" ? "Y" : "N";
+                break;
+              case 4 : 
+                clientAnswer.dis = $(this).text() == "필" ? "Y" : "N";
+                break;
+            }
+          }else if(dataType == "유"){
+            switch(indexP){
+              case 0 : 
+                clientAnswer.money1 = $(this).text().substring(0,1);
+                break;
+              case 1 : 
+                clientAnswer.dis = $(this).text() == "필" ? "Y" : "N";
+                break;
+              case 2 : 
+                clientAnswer.chungyn = $(this).text() == "필" ? "Y" : "N";
+                break;
+              case 3 : 
+                clientAnswer.score1 = $(this).text().substring(0,1);
+                break;
+              case 4 : 
+                clientAnswer.station = $(this).text() == "필" ? "Y" : "N";
+                break;
+            }
+          }else if(dataType == "조"){
+            switch(indexP){
+              case 0 : 
+                clientAnswer.chungyn = $(this).text() == "필" ? "Y" : "N";
+                break;
+              case 1 : 
+                clientAnswer.money1 = $(this).text().substring(0,1);
+                break;
+              case 2 : 
+                clientAnswer.dis = $(this).text() == "필" ? "Y" : "N";
+                break;
+              case 3 : 
+                clientAnswer.station = $(this).text() == "필" ? "Y" : "N";
+                break;
+              case 4 : 
+                clientAnswer.score1 = $(this).text().substring(0,1);
+                break;
+            }
           }
           
           indexP++;
@@ -390,21 +429,24 @@
 
       function resultMethod(){
 
-
+        console.log(compareArr);
         for(var i=0; i < compareArr.length; i++){
             if(clientAnswer.chungyn == "N" || clientAnswer.chungyn == compareArr[i].chungyn){
               if(clientAnswer.dis =="N" || clientAnswer.dis == compareArr[i].dis){
                 if(clientAnswer.station == "N" || clientAnswer.station == compareArr[i].station){
-                  if(clientAnswer.score1 == compareArr[i].score1){
-                    if(clientAnswer.money1 == compareArr[i].money1){
+                  
+                  if(clientAnswer.score1 <= compareArr[i].score1){
+                    if(clientAnswer.money1 >= compareArr[i].money1){
                       resultArr.push(compareArr[i]);
                     }
                   } 
+
                 }
               }  
             }
           }
-
+        console.log(resultArr);
+        console.log(clientAnswer)
         deleteAnswers();
         $("#mask").show();
         setTimeout(function(){
