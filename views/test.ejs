@@ -398,8 +398,9 @@
       function settingTemplate(){
         var temp1 = "<div style=\"font-weight: bold; font-size: 20px;\">#";
         var temp2 = "</div>"; 
-        var temp3 = "<a style=\"text-decoration:none; font-size:15;\" href=\"";
+        var temp3 = "<a style=\" text-decoration:none; font-size:15;\" href=\"";
         var temp4 = "\">, 학교 바로가기</a>";
+        var temp5 = "<div style=\"font-weight: bold; font-size: 20px; margin-bottom: 15px\">";
         
         var temp10 = "<div style=\"margin-top:40px; font-weight: bold; font-size: 20px;\">#"+majorExplanation[0];  //학과명
         var temp11 = "<div style=\"font-weight: bold;margin-top:15px; font-size: 17px;\">- 학과 개요</div>";  // 학과 개요
@@ -419,7 +420,8 @@
         
         
         for(var i =0; i < resultArr.length; i++){
-          var resultTemp = temp1 + resultArr[i].univ + ", " + resultArr[i].major + temp3 + resultArr[i].site + temp4 + temp2;
+          var resultTemp = temp1 + resultArr[i].univ + ", " + resultArr[i].major + ", " + resultArr[i].phone + ", " + resultArr[i].area  + temp3 + resultArr[i].site + temp4 +  temp2;
+          resultTemp += temp5 + " - " + resultArr[i].service + temp2;
           $("#resultId").append(resultTemp);
         }
         $("#resultId").append(appendGogo);
