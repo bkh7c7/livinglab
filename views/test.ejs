@@ -28,7 +28,7 @@
   </div>  
   <div class="container">
     <div id="mainId"
-      style="width: 800px;position:absolute; left:35%; top:10%; display: none;">
+      style="width: 1000px;position:absolute; left:33%; top:10%; display: none;">
       <div>
         <div class="question-div-class">
           <p id="questionNumId" class="question-p-class"
@@ -183,12 +183,12 @@
     var answerType1 = [ //국문, 문창, 철학
       ["필수", "무관"], //장애 지원 서비스
       ["1등급 이하", "2등급 이하", "3등급 이하", "4등급 이하", "5 등급 이하"], // 성적평균
-      ["200 만원 미만", "300 만원 미만", "400 만원 미만", "400 만원 이상"], // 한학기 등록금
+      ["200 만원 미만", "300 만원 미만", "400 만원 미만", "무관"], // 한학기 등록금
       ["필수", "무관"], //역세권 유무
       ["필수", "무관"], //장애전형  유무
     ]
     var answerType2 = [ //유아
-      ["200 만원 미만", "300 만원 미만", "400 만원 미만", "400 만원 이상"], // 한학기 등록금
+      ["200 만원 미만", "300 만원 미만", "400 만원 미만", "무관"], // 한학기 등록금
       ["필수", "무관"], //장애전형  유무
       ["필수", "무관"], //장애 지원 서비스
       ["1등급 이하", "2등급 이하", "3등급 이하", "4등급 이하", "5 등급 이하"], // 성적평균
@@ -196,7 +196,7 @@
     ]
     var answerType3 = [ // 조리
       ["필수", "무관"], //장애 지원 서비스
-      ["200 만원 미만", "300 만원 미만", "400 만원 미만", "400 만원 이상"], // 한학기 등록금
+      ["200 만원 미만", "300 만원 미만", "400 만원 미만", "무관"], // 한학기 등록금
       ["필수", "무관"], //장애전형  유무
       ["필수", "무관"], //역세권 유무
       ["1등급 이하", "2등급 이하", "3등급 이하", "4등급 이하", "5 등급 이하"], // 성적평균
@@ -295,7 +295,7 @@
                 clientAnswer.score1 = $(this).text().substring(0,1);
                 break;
               case 2 : 
-                clientAnswer.money1 = $(this).text().substring(0,1);
+                clientAnswer.money1 = $(this).text().substring(0,1) == "무" ? 5 : $(this).text().substring(0,1);
                 break;
               case 3 : 
                 clientAnswer.station = $(this).text().substring(0,1) == "필" ? "Y" : "N";
@@ -307,7 +307,7 @@
           }else if(dataType == "유"){
             switch(indexP){
               case 0 : 
-                clientAnswer.money1 = $(this).text().substring(0,1);
+                clientAnswer.money1 = $(this).text().substring(0,1) == "무" ? 5 : $(this).text().substring(0,1);
                 break;
               case 1 : 
                 clientAnswer.dis = $(this).text().substring(0,1) == "필" ? "Y" : "N";
@@ -328,7 +328,7 @@
                 clientAnswer.chungyn = $(this).text().substring(0,1) == "필" ? "Y" : "N";
                 break;
               case 1 : 
-                clientAnswer.money1 = $(this).text().substring(0,1);
+                clientAnswer.money1 = $(this).text().substring(0,1) == "무" ? 5 : $(this).text().substring(0,1);
                 break;
               case 2 : 
                 clientAnswer.dis = $(this).text().substring(0,1) == "필" ? "Y" : "N";
@@ -399,7 +399,7 @@
         var temp1 = "<div style=\"font-weight: bold; font-size: 20px;\">#";
         var temp2 = "</div>"; 
         var temp3 = "<a style=\"text-decoration:none; font-size:15;\" href=\"";
-        var temp4 = "\">학교 바로가기</a>";
+        var temp4 = "\">, 학교 바로가기</a>";
         
         var temp10 = "<div style=\"margin-top:40px; font-weight: bold; font-size: 20px;\">#"+majorExplanation[0];  //학과명
         var temp11 = "<div style=\"font-weight: bold;margin-top:15px; font-size: 17px;\">- 학과 개요</div>";  // 학과 개요
@@ -419,7 +419,7 @@
         
         
         for(var i =0; i < resultArr.length; i++){
-          var resultTemp = temp1 + resultArr[i].univ + " " + resultArr[i].major + temp3 + resultArr[i].site + temp4 + temp2;
+          var resultTemp = temp1 + resultArr[i].univ + ", " + resultArr[i].major + temp3 + resultArr[i].site + temp4 + temp2;
           $("#resultId").append(resultTemp);
         }
         $("#resultId").append(appendGogo);
